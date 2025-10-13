@@ -58,9 +58,9 @@ class TVMazeClient implements ClientInterface
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         return array_map(
-            fn(array $item) => [
+            fn (array $item) => [
                 'score' => $item['score'],
-                'show' => Show::fromArray($item['show'])
+                'show' => Show::fromArray($item['show']),
             ],
             $data
         );
@@ -238,9 +238,9 @@ class TVMazeClient implements ClientInterface
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         return array_map(
-            fn(array $item) => [
+            fn (array $item) => [
                 'score' => $item['score'],
-                'person' => Person::fromArray($item['person'])
+                'person' => Person::fromArray($item['person']),
             ],
             $data
         );
