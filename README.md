@@ -227,6 +227,31 @@ function makeRequestWithRetry(callable $request, int $maxRetries = 3): mixed
 $show = makeRequestWithRetry(fn() => $client->getShow(169));
 ```
 
+## Project Structure
+
+```
+tvmaze-client-php/
+├── 📁 src/                    # Source code
+│   ├── Client/               # Main HTTP client
+│   ├── Model/                # Data models (Show, Episode, Person, etc.)
+│   └── Exception/            # Custom exceptions
+├── 📁 tests/                 # Test suites
+│   ├── Unit/                 # Unit tests with mocked responses
+│   └── Contract/             # Contract tests against real API
+├── 📁 examples/              # Usage examples
+├── 📁 .github/               # GitHub Actions & templates
+├── 📄 composer.json          # Package configuration
+└── 📄 README.md              # This documentation
+```
+
+### Architecture
+
+- **PSR-4 Autoloading**: `TVMaze\` namespace
+- **PSR-18 HTTP Client**: Standard-compliant HTTP interface
+- **Type Safety**: PHP 8.2+ with full type declarations
+- **Error Handling**: Custom exceptions for different API errors
+- **Testing**: Unit tests + contract tests for API compatibility
+
 ## Development
 
 ### Running Tests
