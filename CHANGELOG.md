@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-10-13
+
+### Added
+- Consistent API responses with typed objects
+- Improved type safety for search operations
+
+### Changed
+- **BREAKING**: `searchShows()` now returns `Show` objects instead of raw arrays
+- **BREAKING**: `searchPeople()` now returns `Person` objects instead of raw arrays
+- Updated examples and documentation to reflect new API
+
+### Migration Guide
+Update your code from:
+```php
+// Old syntax
+$name = $result['show']['name'];
+$personName = $result['person']['name'];
+```
+
+To:
+```php
+// New syntax  
+$name = $result['show']->name;
+$personName = $result['person']->name;
+```
+
+## [1.0.0] - 2025-10-13
+
 ### Added
 - Initial release of TVMaze PHP Client
 - PSR-18 compliant HTTP client implementation

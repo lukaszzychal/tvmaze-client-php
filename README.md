@@ -46,7 +46,7 @@ $client = TVMazeClient::create();
 // Search for shows
 $shows = $client->searchShows('breaking bad');
 foreach ($shows as $result) {
-    echo $result['show']['name'] . ' (Score: ' . $result['score'] . ')' . PHP_EOL;
+    echo $result['show']->name . ' (Score: ' . $result['score'] . ')' . PHP_EOL;
 }
 
 // Get a specific show
@@ -63,7 +63,7 @@ foreach ($episodes as $episode) {
 // Search for people
 $people = $client->searchPeople('bryan cranston');
 foreach ($people as $result) {
-    echo $result['person']['name'] . PHP_EOL;
+    echo $result['person']->name . PHP_EOL;
 }
 ```
 
@@ -75,7 +75,7 @@ foreach ($people as $result) {
 ```php
 // Search for shows with fuzzy matching
 $results = $client->searchShows('breaking bad');
-// Returns array of [score => float, show => array]
+// Returns array of [score => float, show => Show]
 
 // Single show search (returns one result or null)
 $show = $client->singleShowSearch('breaking bad');
@@ -90,7 +90,7 @@ $show = $client->lookupShow('tvrage', '12345');
 #### Search People
 ```php
 $people = $client->searchPeople('bryan cranston');
-// Returns array of [score => float, person => array]
+// Returns array of [score => float, person => Person]
 ```
 
 ### Show Operations
