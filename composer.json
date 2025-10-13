@@ -48,9 +48,6 @@
         "sort-packages": true,
         "allow-plugins": {
             "php-http/discovery": true
-        },
-        "platform": {
-            "php": "8.4.0"
         }
     },
     "minimum-stability": "stable",
