@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace TVMaze\Tests\Unit;
 
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\HttpFactory;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use TVMaze\Client\TVMazeClient;
 use TVMaze\Exception\ClientException;
 use TVMaze\Exception\RateLimitException;
 use TVMaze\Exception\ServerException;
-use TVMaze\Exception\TVMazeException;
 use TVMaze\Model\Episode;
 use TVMaze\Model\Person;
 use TVMaze\Model\Show;
@@ -23,16 +21,17 @@ use TVMaze\Model\Show;
 class TVMazeClientTest extends TestCase
 {
     private MockHandler $mockHandler;
+
     private TVMazeClient $client;
 
     protected function setUp(): void
     {
         $this->mockHandler = new MockHandler();
         $handlerStack = HandlerStack::create($this->mockHandler);
-        
+
         $guzzleClient = new GuzzleClient([
             'handler' => $handlerStack,
-            'base_uri' => 'https://api.tvmaze.com'
+            'base_uri' => 'https://api.tvmaze.com',
         ]);
 
         $this->client = new TVMazeClient(
@@ -62,10 +61,10 @@ class TVMazeClientTest extends TestCase
                     'officialSite' => 'https://testshow.com',
                     'schedule' => [
                         'time' => '21:00',
-                        'days' => ['Sunday']
+                        'days' => ['Sunday'],
                     ],
                     'rating' => [
-                        'average' => 8.5
+                        'average' => 8.5,
                     ],
                     'weight' => 95,
                     'network' => null,
@@ -74,19 +73,19 @@ class TVMazeClientTest extends TestCase
                     'externals' => [
                         'tvrage' => 12345,
                         'thetvdb' => 67890,
-                        'imdb' => 'tt1234567'
+                        'imdb' => 'tt1234567',
                     ],
                     'image' => [
                         'medium' => 'https://static.tvmaze.com/uploads/images/medium_portrait/1/1.jpg',
-                        'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg'
+                        'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg',
                     ],
                     'summary' => 'A test show',
                     'updated' => 1640995200,
                     '_links' => [
-                        'self' => ['href' => 'https://api.tvmaze.com/shows/1']
-                    ]
-                ]
-            ]
+                        'self' => ['href' => 'https://api.tvmaze.com/shows/1'],
+                    ],
+                ],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -116,10 +115,10 @@ class TVMazeClientTest extends TestCase
             'officialSite' => 'https://testshow.com',
             'schedule' => [
                 'time' => '21:00',
-                'days' => ['Sunday']
+                'days' => ['Sunday'],
             ],
             'rating' => [
-                'average' => 8.5
+                'average' => 8.5,
             ],
             'weight' => 95,
             'network' => null,
@@ -128,17 +127,17 @@ class TVMazeClientTest extends TestCase
             'externals' => [
                 'tvrage' => 12345,
                 'thetvdb' => 67890,
-                'imdb' => 'tt1234567'
+                'imdb' => 'tt1234567',
             ],
             'image' => [
                 'medium' => 'https://static.tvmaze.com/uploads/images/medium_portrait/1/1.jpg',
-                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg'
+                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg',
             ],
             'summary' => 'A test show',
             'updated' => 1640995200,
             '_links' => [
-                'self' => ['href' => 'https://api.tvmaze.com/shows/1']
-            ]
+                'self' => ['href' => 'https://api.tvmaze.com/shows/1'],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -176,10 +175,10 @@ class TVMazeClientTest extends TestCase
             'officialSite' => 'https://testshow.com',
             'schedule' => [
                 'time' => '21:00',
-                'days' => ['Sunday']
+                'days' => ['Sunday'],
             ],
             'rating' => [
-                'average' => 8.5
+                'average' => 8.5,
             ],
             'weight' => 95,
             'network' => null,
@@ -188,17 +187,17 @@ class TVMazeClientTest extends TestCase
             'externals' => [
                 'tvrage' => 12345,
                 'thetvdb' => 67890,
-                'imdb' => 'tt1234567'
+                'imdb' => 'tt1234567',
             ],
             'image' => [
                 'medium' => 'https://static.tvmaze.com/uploads/images/medium_portrait/1/1.jpg',
-                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg'
+                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg',
             ],
             'summary' => 'A test show',
             'updated' => 1640995200,
             '_links' => [
-                'self' => ['href' => 'https://api.tvmaze.com/shows/1']
-            ]
+                'self' => ['href' => 'https://api.tvmaze.com/shows/1'],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -228,13 +227,13 @@ class TVMazeClientTest extends TestCase
                 'image' => null,
                 'summary' => 'A test episode',
                 '_links' => [
-                    'self' => ['href' => 'https://api.tvmaze.com/episodes/1']
+                    'self' => ['href' => 'https://api.tvmaze.com/episodes/1'],
                 ],
                 'show' => [
                     'id' => 1,
-                    'name' => 'Test Show'
-                ]
-            ]
+                    'name' => 'Test Show',
+                ],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -265,12 +264,33 @@ class TVMazeClientTest extends TestCase
             'image' => null,
             'summary' => 'A test episode',
             '_links' => [
-                'self' => ['href' => 'https://api.tvmaze.com/episodes/1']
+                'self' => ['href' => 'https://api.tvmaze.com/episodes/1'],
             ],
             'show' => [
                 'id' => 1,
-                'name' => 'Test Show'
-            ]
+                'name' => 'Test Show',
+                'url' => null,
+                'type' => null,
+                'language' => null,
+                'genres' => [],
+                'status' => null,
+                'runtime' => null,
+                'averageRuntime' => null,
+                'premiered' => null,
+                'ended' => null,
+                'officialSite' => null,
+                'schedule' => null,
+                'rating' => null,
+                'weight' => null,
+                'network' => null,
+                'webChannel' => null,
+                'dvdCountry' => null,
+                'externals' => null,
+                'image' => null,
+                'summary' => null,
+                'updated' => null,
+                '_links' => null,
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -296,21 +316,21 @@ class TVMazeClientTest extends TestCase
                     'country' => [
                         'name' => 'United States',
                         'code' => 'US',
-                        'timezone' => 'America/New_York'
+                        'timezone' => 'America/New_York',
                     ],
                     'birthday' => '1980-01-01',
                     'deathday' => null,
                     'gender' => 'Male',
                     'image' => [
                         'medium' => 'https://static.tvmaze.com/uploads/images/medium_portrait/1/1.jpg',
-                        'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg'
+                        'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg',
                     ],
                     'updated' => 1640995200,
                     '_links' => [
-                        'self' => ['href' => 'https://api.tvmaze.com/people/1']
-                    ]
-                ]
-            ]
+                        'self' => ['href' => 'https://api.tvmaze.com/people/1'],
+                    ],
+                ],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -332,19 +352,19 @@ class TVMazeClientTest extends TestCase
             'country' => [
                 'name' => 'United States',
                 'code' => 'US',
-                'timezone' => 'America/New_York'
+                'timezone' => 'America/New_York',
             ],
             'birthday' => '1980-01-01',
             'deathday' => null,
             'gender' => 'Male',
             'image' => [
                 'medium' => 'https://static.tvmaze.com/uploads/images/medium_portrait/1/1.jpg',
-                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg'
+                'original' => 'https://static.tvmaze.com/uploads/images/original_untouched/1/1.jpg',
             ],
             'updated' => 1640995200,
             '_links' => [
-                'self' => ['href' => 'https://api.tvmaze.com/people/1']
-            ]
+                'self' => ['href' => 'https://api.tvmaze.com/people/1'],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -374,13 +394,13 @@ class TVMazeClientTest extends TestCase
                 'image' => null,
                 'summary' => 'A test episode',
                 '_links' => [
-                    'self' => ['href' => 'https://api.tvmaze.com/episodes/1']
+                    'self' => ['href' => 'https://api.tvmaze.com/episodes/1'],
                 ],
                 'show' => [
                     'id' => 1,
-                    'name' => 'Test Show'
-                ]
-            ]
+                    'name' => 'Test Show',
+                ],
+            ],
         ];
 
         $this->mockHandler->append(new Response(200, [], json_encode($mockResponse)));
@@ -418,7 +438,7 @@ class TVMazeClientTest extends TestCase
     public function testCreateStatic(): void
     {
         $client = TVMazeClient::create('Test-Client/1.0');
-        
+
         $this->assertInstanceOf(TVMazeClient::class, $client);
     }
 }

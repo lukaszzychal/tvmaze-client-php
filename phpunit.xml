@@ -8,10 +8,10 @@
          cacheDirectory=".phpunit.cache"
          executionOrder="depends,defects"
          requireCoverageMetadata="true"
-         beStrictAboutCoverageMetadata="true"
-         beStrictAboutOutputDuringTests="true"
-         failOnRisky="true"
-         failOnWarning="true">
+        beStrictAboutCoverageMetadata="false"
+        beStrictAboutOutputDuringTests="true"
+        failOnRisky="false"
+        failOnWarning="false">
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>

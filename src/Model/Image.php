@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * Image model
+ * Image model.
  */
 class Image
 {
     public function __construct(
         public readonly ?string $medium,
         public readonly ?string $original
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

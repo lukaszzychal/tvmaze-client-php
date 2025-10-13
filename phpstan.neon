@@ -7,7 +7,5 @@ parameters:
         - src
     excludePaths:
         - tests
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
-        - '#PHPDoc tag @var has invalid value#'
+        - identifier: missingType.iterableValue

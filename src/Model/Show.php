@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * TV Show model
+ * TV Show model.
  */
 class Show
 {
@@ -31,10 +31,11 @@ class Show
         public readonly ?Externals $externals,
         public readonly ?Image $image,
         public readonly ?string $summary,
-        public readonly int $updated,
+        public readonly ?int $updated,
         public readonly ?Links $_links,
         public readonly ?Embedded $_embedded = null
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {
@@ -60,7 +61,7 @@ class Show
             externals: isset($data['externals']) ? Externals::fromArray($data['externals']) : null,
             image: isset($data['image']) ? Image::fromArray($data['image']) : null,
             summary: $data['summary'] ?? null,
-            updated: $data['updated'],
+            updated: $data['updated'] ?? null,
             _links: isset($data['_links']) ? Links::fromArray($data['_links']) : null,
             _embedded: isset($data['_embedded']) ? Embedded::fromArray($data['_embedded']) : null
         );

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * HAL Links model
+ * HAL Links model.
  */
 class Links
 {
@@ -13,7 +13,8 @@ class Links
         public readonly ?Link $self,
         public readonly ?Link $previousepisode,
         public readonly ?Link $nextepisode
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

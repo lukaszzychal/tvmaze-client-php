@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * DVD Country model
+ * DVD Country model.
  */
 class DvdCountry
 {
@@ -13,7 +13,8 @@ class DvdCountry
         public readonly ?string $name,
         public readonly ?string $code,
         public readonly ?string $timezone
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * Network model
+ * Network model.
  */
 class Network
 {
@@ -14,7 +14,8 @@ class Network
         public readonly ?string $name,
         public readonly ?Country $country,
         public readonly ?string $officialSite
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

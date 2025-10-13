@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * Person model
+ * Person model.
  */
 class Person
 {
@@ -18,10 +18,11 @@ class Person
         public readonly ?string $deathday,
         public readonly ?string $gender,
         public readonly ?Image $image,
-        public readonly int $updated,
+        public readonly ?int $updated,
         public readonly ?Links $_links,
         public readonly ?Embedded $_embedded = null
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {
@@ -34,7 +35,7 @@ class Person
             deathday: $data['deathday'] ?? null,
             gender: $data['gender'] ?? null,
             image: isset($data['image']) ? Image::fromArray($data['image']) : null,
-            updated: $data['updated'],
+            updated: $data['updated'] ?? null,
             _links: isset($data['_links']) ? Links::fromArray($data['_links']) : null,
             _embedded: isset($data['_embedded']) ? Embedded::fromArray($data['_embedded']) : null
         );

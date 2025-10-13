@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * External IDs model
+ * External IDs model.
  */
 class Externals
 {
@@ -13,7 +13,8 @@ class Externals
         public readonly ?int $tvrage,
         public readonly ?int $thetvdb,
         public readonly ?string $imdb
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

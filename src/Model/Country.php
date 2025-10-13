@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * Country model
+ * Country model.
  */
 class Country
 {
@@ -13,7 +13,8 @@ class Country
         public readonly ?string $name,
         public readonly ?string $code,
         public readonly ?string $timezone
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

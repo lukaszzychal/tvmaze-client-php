@@ -22,7 +22,7 @@ use TVMaze\Model\Person;
 use TVMaze\Model\Show;
 
 /**
- * PSR-18 HTTP client for TVMaze API
+ * PSR-18 HTTP client for TVMaze API.
  */
 class TVMazeClient implements ClientInterface
 {
@@ -33,7 +33,8 @@ class TVMazeClient implements ClientInterface
         private readonly GuzzleClient $httpClient,
         private readonly RequestFactoryInterface $requestFactory,
         private readonly StreamFactoryInterface $streamFactory
-    ) {}
+    ) {
+    }
 
     public static function create(?string $userAgent = null): self
     {
@@ -54,7 +55,7 @@ class TVMazeClient implements ClientInterface
     }
 
     /**
-     * Search for shows
+     * Search for shows.
      *
      * @param string $query Search query
      * @return array<array{show: array, score: float}>
@@ -63,11 +64,12 @@ class TVMazeClient implements ClientInterface
     public function searchShows(string $query): array
     {
         $response = $this->request('GET', '/search/shows', ['q' => $query]);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Single show search
+     * Single show search.
      *
      * @param string $query Search query
      * @param array<string> $embed Embedded resources
@@ -84,17 +86,19 @@ class TVMazeClient implements ClientInterface
         try {
             $response = $this->request('GET', '/singlesearch/shows', $params);
             $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
             return Show::fromArray($data);
         } catch (TVMazeException $e) {
             if ($e->getCode() === 404) {
                 return null;
             }
+
             throw $e;
         }
     }
 
     /**
-     * Lookup show by external ID
+     * Lookup show by external ID.
      *
      * @param string $type Type of external ID (thetvdb, imdb, tvrage)
      * @param string $id External ID
@@ -106,17 +110,19 @@ class TVMazeClient implements ClientInterface
         try {
             $response = $this->request('GET', '/lookup/shows', [$type => $id]);
             $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
             return Show::fromArray($data);
         } catch (TVMazeException $e) {
             if ($e->getCode() === 404) {
                 return null;
             }
+
             throw $e;
         }
     }
 
     /**
-     * Get show by ID
+     * Get show by ID.
      *
      * @param int $id Show ID
      * @param array<string> $embed Embedded resources
@@ -132,11 +138,12 @@ class TVMazeClient implements ClientInterface
 
         $response = $this->request('GET', "/shows/{$id}", $params);
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
         return Show::fromArray($data);
     }
 
     /**
-     * Get show episodes
+     * Get show episodes.
      *
      * @param int $showId Show ID
      * @param bool $includeSpecials Include special episodes
@@ -152,12 +159,12 @@ class TVMazeClient implements ClientInterface
 
         $response = $this->request('GET', "/shows/{$showId}/episodes", $params);
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-        
-        return array_map(fn(array $episode) => Episode::fromArray($episode), $data);
+
+        return array_map(fn (array $episode) => Episode::fromArray($episode), $data);
     }
 
     /**
-     * Get episode by number
+     * Get episode by number.
      *
      * @param int $showId Show ID
      * @param int $season Season number
@@ -169,14 +176,15 @@ class TVMazeClient implements ClientInterface
     {
         $response = $this->request('GET', "/shows/{$showId}/episodebynumber", [
             'season' => $season,
-            'number' => $number
+            'number' => $number,
         ]);
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
         return Episode::fromArray($data);
     }
 
     /**
-     * Get episodes by date
+     * Get episodes by date.
      *
      * @param int $showId Show ID
      * @param string $date Date in YYYY-MM-DD format
@@ -187,12 +195,12 @@ class TVMazeClient implements ClientInterface
     {
         $response = $this->request('GET', "/shows/{$showId}/episodesbydate", ['date' => $date]);
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-        
-        return array_map(fn(array $episode) => Episode::fromArray($episode), $data);
+
+        return array_map(fn (array $episode) => Episode::fromArray($episode), $data);
     }
 
     /**
-     * Get show cast
+     * Get show cast.
      *
      * @param int $showId Show ID
      * @return array
@@ -201,11 +209,12 @@ class TVMazeClient implements ClientInterface
     public function getShowCast(int $showId): array
     {
         $response = $this->request('GET', "/shows/{$showId}/cast");
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get show crew
+     * Get show crew.
      *
      * @param int $showId Show ID
      * @return array
@@ -214,11 +223,12 @@ class TVMazeClient implements ClientInterface
     public function getShowCrew(int $showId): array
     {
         $response = $this->request('GET', "/shows/{$showId}/crew");
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Search for people
+     * Search for people.
      *
      * @param string $query Search query
      * @return array<array{person: array, score: float}>
@@ -227,11 +237,12 @@ class TVMazeClient implements ClientInterface
     public function searchPeople(string $query): array
     {
         $response = $this->request('GET', '/search/people', ['q' => $query]);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get person by ID
+     * Get person by ID.
      *
      * @param int $id Person ID
      * @param array<string> $embed Embedded resources
@@ -247,11 +258,12 @@ class TVMazeClient implements ClientInterface
 
         $response = $this->request('GET', "/people/{$id}", $params);
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+
         return Person::fromArray($data);
     }
 
     /**
-     * Get schedule
+     * Get schedule.
      *
      * @param string|null $country Country code (ISO 3166-1)
      * @param string|null $date Date in YYYY-MM-DD format
@@ -269,11 +281,12 @@ class TVMazeClient implements ClientInterface
         }
 
         $response = $this->request('GET', '/schedule', $params);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get web schedule
+     * Get web schedule.
      *
      * @param string|null $country Country code (ISO 3166-1) or empty string for global only
      * @param string|null $date Date in YYYY-MM-DD format
@@ -291,11 +304,12 @@ class TVMazeClient implements ClientInterface
         }
 
         $response = $this->request('GET', '/schedule/web', $params);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get show updates
+     * Get show updates.
      *
      * @param string|null $since Filter by time (day, week, month)
      * @return array
@@ -309,11 +323,12 @@ class TVMazeClient implements ClientInterface
         }
 
         $response = $this->request('GET', '/updates/shows', $params);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Get people updates
+     * Get people updates.
      *
      * @param string|null $since Filter by time (day, week, month)
      * @return array
@@ -327,11 +342,12 @@ class TVMazeClient implements ClientInterface
         }
 
         $response = $this->request('GET', '/updates/people', $params);
+
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
-     * Send HTTP request
+     * Send HTTP request.
      *
      * @param string $method HTTP method
      * @param string $uri URI
@@ -348,15 +364,17 @@ class TVMazeClient implements ClientInterface
             }
 
             $response = $this->httpClient->request($method, $uri, $options);
+
             return $response->getBody()->getContents();
         } catch (RequestException $e) {
             $this->handleRequestException($e);
+
             return ''; // This line will never be reached due to exception
         }
     }
 
     /**
-     * Handle request exceptions
+     * Handle request exceptions.
      *
      * @param RequestException $e
      * @throws TVMazeException
@@ -397,6 +415,7 @@ class TVMazeClient implements ClientInterface
             if ($e instanceof RequestException) {
                 $this->handleRequestException($e);
             }
+
             throw new TVMazeException('Request failed', 0, $e);
         }
     }

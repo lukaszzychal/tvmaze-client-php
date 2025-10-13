@@ -7,7 +7,7 @@ namespace TVMaze\Exception;
 use Exception;
 
 /**
- * Base exception for TVMaze API client
+ * Base exception for TVMaze API client.
  */
 class TVMazeException extends Exception
 {

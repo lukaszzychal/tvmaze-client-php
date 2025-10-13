@@ -13,16 +13,16 @@ echo "=======================================\n\n";
 try {
     // Create a client instance
     $client = TVMazeClient::create('TVMaze-PHP-Client-Example/1.0');
-    
+
     // Search for a show
     echo "1. Searching for 'Breaking Bad'...\n";
     $shows = $client->searchShows('breaking bad');
-    
+
     if (!empty($shows)) {
         $firstShow = $shows[0]['show'];
         echo "   Found: {$firstShow['name']} (Score: {$shows[0]['score']})\n";
         echo "   ID: {$firstShow['id']}\n\n";
-        
+
         // Get detailed show information
         echo "2. Getting detailed information for Breaking Bad...\n";
         $show = $client->getShow($firstShow['id']);
@@ -30,24 +30,24 @@ try {
         echo "   Status: {$show->status}\n";
         echo "   Premiered: {$show->premiered}\n";
         echo "   Runtime: {$show->runtime} minutes\n";
-        echo "   Genres: " . implode(', ', $show->genres) . "\n";
-        
+        echo '   Genres: ' . implode(', ', $show->genres) . "\n";
+
         if ($show->rating && $show->rating->average) {
             echo "   Rating: {$show->rating->average}/10\n";
         }
-        
+
         if ($show->summary) {
             $summary = strip_tags($show->summary);
             $summary = strlen($summary) > 200 ? substr($summary, 0, 200) . '...' : $summary;
             echo "   Summary: {$summary}\n";
         }
         echo "\n";
-        
+
         // Get first few episodes
         echo "3. Getting first 3 episodes...\n";
         $episodes = $client->getShowEpisodes($firstShow['id']);
         $firstThree = array_slice($episodes, 0, 3);
-        
+
         foreach ($firstThree as $episode) {
             echo "   S{$episode->season}E{$episode->number}: {$episode->name}";
             if ($episode->airdate) {
@@ -56,12 +56,12 @@ try {
             echo "\n";
         }
         echo "\n";
-        
+
         // Search for cast members
         echo "4. Getting cast information...\n";
         $cast = $client->getShowCast($firstShow['id']);
         $firstThreeCast = array_slice($cast, 0, 3);
-        
+
         foreach ($firstThreeCast as $castMember) {
             $person = $castMember['person'];
             $character = $castMember['character'];
@@ -69,16 +69,16 @@ try {
         }
         echo "\n";
     }
-    
+
     // Search for a person
     echo "5. Searching for 'Bryan Cranston'...\n";
     $people = $client->searchPeople('bryan cranston');
-    
+
     if (!empty($people)) {
         $firstPerson = $people[0]['person'];
         echo "   Found: {$firstPerson['name']} (Score: {$people[0]['score']})\n";
         echo "   ID: {$firstPerson['id']}\n\n";
-        
+
         // Get detailed person information
         echo "6. Getting detailed information for Bryan Cranston...\n";
         $person = $client->getPerson($firstPerson['id']);
@@ -91,12 +91,12 @@ try {
         }
         echo "\n";
     }
-    
+
     // Get today's schedule for US
     echo "7. Getting today's TV schedule for US...\n";
     $schedule = $client->getSchedule('US');
-    echo "   Found " . count($schedule) . " episodes airing today\n";
-    
+    echo '   Found ' . count($schedule) . " episodes airing today\n";
+
     if (!empty($schedule)) {
         echo "   First few shows:\n";
         $firstThree = array_slice($schedule, 0, 3);
@@ -109,12 +109,11 @@ try {
             echo "\n";
         }
     }
-    
+
     echo "\n✅ Example completed successfully!\n";
-    
 } catch (TVMazeException $e) {
-    echo "❌ TVMaze API Error: " . $e->getMessage() . "\n";
-    echo "   Code: " . $e->getCode() . "\n";
+    echo '❌ TVMaze API Error: ' . $e->getMessage() . "\n";
+    echo '   Code: ' . $e->getCode() . "\n";
 } catch (Exception $e) {
-    echo "❌ Error: " . $e->getMessage() . "\n";
+    echo '❌ Error: ' . $e->getMessage() . "\n";
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TVMaze\Model;
 
 /**
- * Embedded resources model
+ * Embedded resources model.
  */
 class Embedded
 {
@@ -15,7 +15,8 @@ class Embedded
         public readonly ?array $crew,
         public readonly ?array $nextepisode,
         public readonly ?array $previousepisode
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {
