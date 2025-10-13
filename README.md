@@ -25,7 +25,7 @@ A modern, PSR-18 compliant PHP client for the [TVMaze API](https://www.tvmaze.co
 ## Installation
 
 ```bash
-composer require lukaszzychal/tvmaze-client-php
+composer require lukaszzychal/tvmaze-client-php:^2.0
 ```
 
 ## Requirements

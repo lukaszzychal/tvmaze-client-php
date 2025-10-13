@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.0] - 2025-10-13
+## [2.0.0] - 2025-10-13
 
 ### Added
 - Consistent API responses with typed objects
@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING**: `searchShows()` now returns `Show` objects instead of raw arrays
 - **BREAKING**: `searchPeople()` now returns `Person` objects instead of raw arrays
 - Updated examples and documentation to reflect new API
+
+### Breaking Changes
+This is a **MAJOR** version bump due to breaking changes in API responses.
 
 ### Migration Guide
 Update your code from:
