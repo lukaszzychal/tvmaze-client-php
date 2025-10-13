@@ -20,12 +20,12 @@ try {
 
     if (!empty($shows)) {
         $firstShow = $shows[0]['show'];
-        echo "   Found: {$firstShow['name']} (Score: {$shows[0]['score']})\n";
-        echo "   ID: {$firstShow['id']}\n\n";
+        echo "   Found: {$firstShow->name} (Score: {$shows[0]['score']})\n";
+        echo "   ID: {$firstShow->id}\n\n";
 
         // Get detailed show information
         echo "2. Getting detailed information for Breaking Bad...\n";
-        $show = $client->getShow($firstShow['id']);
+        $show = $client->getShow($firstShow->id);
         echo "   Name: {$show->name}\n";
         echo "   Status: {$show->status}\n";
         echo "   Premiered: {$show->premiered}\n";

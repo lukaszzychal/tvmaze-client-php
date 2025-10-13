@@ -95,7 +95,7 @@ class TVMazeClientTest extends TestCase
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertEquals(0.99, $result[0]['score']);
-        $this->assertEquals('Test Show', $result[0]['show']['name']);
+        $this->assertEquals('Test Show', $result[0]['show']->name);
     }
 
     public function testSingleShowSearch(): void
@@ -340,7 +340,7 @@ class TVMazeClientTest extends TestCase
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertEquals(0.99, $result[0]['score']);
-        $this->assertEquals('Test Person', $result[0]['person']['name']);
+        $this->assertEquals('Test Person', $result[0]['person']->name);
     }
 
     public function testGetPerson(): void

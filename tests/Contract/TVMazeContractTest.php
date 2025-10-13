@@ -37,15 +37,13 @@ class TVMazeContractTest extends TestCase
         $this->assertArrayHasKey('score', $firstResult);
         $this->assertArrayHasKey('show', $firstResult);
         $this->assertIsNumeric($firstResult['score']);
-        $this->assertIsArray($firstResult['show']);
+        $this->assertInstanceOf(\TVMaze\Model\Show::class, $firstResult['show']);
 
         // Verify show structure
         $show = $firstResult['show'];
-        $this->assertArrayHasKey('id', $show);
-        $this->assertArrayHasKey('name', $show);
-        $this->assertArrayHasKey('url', $show);
-        $this->assertIsInt($show['id']);
-        $this->assertIsString($show['name']);
+        $this->assertIsInt($show->id);
+        $this->assertIsString($show->name);
+        $this->assertIsString($show->url);
     }
 
     public function testSingleShowSearchContract(): void
@@ -122,13 +120,11 @@ class TVMazeContractTest extends TestCase
         $this->assertArrayHasKey('score', $firstResult);
         $this->assertArrayHasKey('person', $firstResult);
         $this->assertIsNumeric($firstResult['score']);
-        $this->assertIsArray($firstResult['person']);
+        $this->assertInstanceOf(\TVMaze\Model\Person::class, $firstResult['person']);
 
         $person = $firstResult['person'];
-        $this->assertArrayHasKey('id', $person);
-        $this->assertArrayHasKey('name', $person);
-        $this->assertIsInt($person['id']);
-        $this->assertIsString($person['name']);
+        $this->assertIsInt($person->id);
+        $this->assertIsString($person->name);
     }
 
     public function testGetPersonContract(): void

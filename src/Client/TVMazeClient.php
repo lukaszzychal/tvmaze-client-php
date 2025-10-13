@@ -49,14 +49,21 @@ class TVMazeClient implements ClientInterface
      * Search for shows.
      *
      * @param string $query Search query
-     * @return array<array{show: array, score: float}>
+     * @return array<int, array{score: float, show: Show}>
      * @throws TVMazeException
      */
     public function searchShows(string $query): array
     {
         $response = $this->request('GET', '/search/shows', ['q' => $query]);
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
-        return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        return array_map(
+            fn(array $item) => [
+                'score' => $item['score'],
+                'show' => Show::fromArray($item['show'])
+            ],
+            $data
+        );
     }
 
     /**
@@ -222,14 +229,21 @@ class TVMazeClient implements ClientInterface
      * Search for people.
      *
      * @param string $query Search query
-     * @return array<array{person: array, score: float}>
+     * @return array<int, array{score: float, person: Person}>
      * @throws TVMazeException
      */
     public function searchPeople(string $query): array
     {
         $response = $this->request('GET', '/search/people', ['q' => $query]);
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
-        return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        return array_map(
+            fn(array $item) => [
+                'score' => $item['score'],
+                'person' => Person::fromArray($item['person'])
+            ],
+            $data
+        );
     }
 
     /**
