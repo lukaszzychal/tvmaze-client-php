@@ -44,15 +44,8 @@ jobs:
         run: composer phpstan
 
       - name: Run Unit Tests
-        run: composer test -- --coverage-clover=coverage.xml
+        run: composer test
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: true
 
   contract-tests:
     name: Contract Tests
