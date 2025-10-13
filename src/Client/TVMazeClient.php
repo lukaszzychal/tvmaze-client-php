@@ -7,12 +7,9 @@ namespace TVMaze\Client;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\HttpFactory;
 use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use TVMaze\Exception\ClientException;
 use TVMaze\Exception\RateLimitException;
 use TVMaze\Exception\ServerException;
@@ -30,9 +27,7 @@ class TVMazeClient implements ClientInterface
     private const USER_AGENT = 'TVMaze-PHP-Client/1.0';
 
     public function __construct(
-        private readonly GuzzleClient $httpClient,
-        private readonly RequestFactoryInterface $requestFactory,
-        private readonly StreamFactoryInterface $streamFactory
+        private readonly GuzzleClient $httpClient
     ) {
     }
 
@@ -47,11 +42,7 @@ class TVMazeClient implements ClientInterface
             ],
         ]);
 
-        return new self(
-            $guzzleClient,
-            new HttpFactory(),
-            new HttpFactory()
-        );
+        return new self($guzzleClient);
     }
 
     /**
