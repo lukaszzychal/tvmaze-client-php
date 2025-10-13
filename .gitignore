@@ -1,0 +1,10 @@
+/vendor/
+/.phpunit.cache/
+/coverage/
+/.php-cs-fixer.cache
+/phpstan-baseline.neon
+.phpunit.result.cache
+*.log
+.env
+.env.local
+.env.*.local
