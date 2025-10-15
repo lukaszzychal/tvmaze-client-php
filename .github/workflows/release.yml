@@ -50,7 +50,22 @@ jobs:
           echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
           echo "## Changes in ${{ steps.version.outputs.VERSION }}" >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
-          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> $GITHUB_OUTPUT
+          echo "### 🆕 New Features" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s" --grep="^feat:" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> $GITHUB_OUTPUT 2>/dev/null || true
+          echo "" >> $GITHUB_OUTPUT
+          echo "### ⚡ Improvements" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s" --grep="^improve\|^enhance\|^update\|^refactor:" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> $GITHUB_OUTPUT 2>/dev/null || true
+          echo "" >> $GITHUB_OUTPUT
+          echo "### 🔧 Technical Changes" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s" --grep="^chore\|^fix\|^docs:" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> $GITHUB_OUTPUT 2>/dev/null || true
+          echo "" >> $GITHUB_OUTPUT
+          echo "### 📋 Migration Guide" >> $GITHUB_OUTPUT
+          echo "**No breaking changes** - This release maintains full backward compatibility." >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "### 📦 Installation" >> $GITHUB_OUTPUT
+          echo '```bash' >> $GITHUB_OUTPUT
+          echo "composer require lukaszzychal/tvmaze-client-php:^${VERSION#v}" >> $GITHUB_OUTPUT
+          echo '```' >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create Release
