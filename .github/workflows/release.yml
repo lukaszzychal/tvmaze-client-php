@@ -53,6 +53,7 @@ jobs:
           
           # Get the previous tag
           PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+          echo "Previous tag: $PREV_TAG"
           
           # Generate changelog for this version
           echo "## Changes in v$VERSION" > release_notes.md
@@ -61,14 +62,17 @@ jobs:
           if [ -n "$PREV_TAG" ]; then
             # Check if there are any commits
             COMMITS=$(git log --pretty=format:"%s" $PREV_TAG..HEAD | wc -l)
+            echo "Commits found: $COMMITS"
             
             if [ "$COMMITS" -gt 0 ]; then
               # New Features
               FEATURES=$(git log --pretty=format:"- %s" --grep="^feat:" $PREV_TAG..HEAD)
+              echo "Features found: '$FEATURES'"
               if [ -n "$FEATURES" ]; then
                 echo "### 🆕 New Features" >> release_notes.md
                 echo "$FEATURES" >> release_notes.md
                 echo "" >> release_notes.md
+                echo "Added features section"
               fi
               
               # Improvements
@@ -81,10 +85,12 @@ jobs:
               
               # Bug Fixes
               FIXES=$(git log --pretty=format:"- %s" --grep="^fix:" $PREV_TAG..HEAD)
+              echo "Fixes found: '$FIXES'"
               if [ -n "$FIXES" ]; then
                 echo "### 🐛 Bug Fixes" >> release_notes.md
                 echo "$FIXES" >> release_notes.md
                 echo "" >> release_notes.md
+                echo "Added fixes section"
               fi
               
               # Technical Changes
