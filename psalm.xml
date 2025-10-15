@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- Allow mixed types for API responses -->
+        <LessSpecificReturnType errorLevel="suppress" />
+        <MoreSpecificReturnType errorLevel="suppress" />
+        
+        <!-- Allow some flexibility in API client -->
+        <MixedAssignment errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
+        <MixedReturnStatement errorLevel="suppress" />
+        
+        <!-- Allow unused methods for public API -->
+        <PossiblyUnusedMethod errorLevel="suppress" />
+        <PossiblyUnusedProperty errorLevel="suppress" />
+        
+        <!-- Allow non-final classes for public API -->
+        <ClassMustBeFinal errorLevel="suppress" />
+        
+        <!-- Allow some risky comparisons -->
+        <RiskyTruthyFalsyComparison errorLevel="suppress" />
+        
+        <!-- Allow missing override attribute -->
+        <MissingOverrideAttribute errorLevel="suppress" />
+    </issueHandlers>
+
+    <extraFiles>
+        <file name="vendor/autoload.php" />
+    </extraFiles>
+</psalm>

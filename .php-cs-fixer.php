@@ -14,15 +14,14 @@ $config = new PhpCsFixer\Config();
 return $config
     ->setRules([
         '@PSR12' => true,
-        '@PHP80Migration' => true,
-        '@PHP81Migration' => true,
+        '@PHP8x2Migration' => true,
         'array_syntax' => ['syntax' => 'short'],
         'binary_operator_spaces' => true,
         'blank_line_after_opening_tag' => true,
         'blank_line_before_statement' => [
             'statements' => ['return', 'throw', 'try'],
         ],
-        'braces' => true,
+        'control_structure_braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => [
             'elements' => [
@@ -39,7 +38,7 @@ return $config
         'encoding' => true,
         'full_opening_tag' => true,
         'function_declaration' => true,
-        'function_typehint_space' => true,
+        'type_declaration_spaces' => true,
         'heredoc_to_nowdoc' => true,
         'include' => true,
         'increment_style' => ['style' => 'post'],
@@ -77,9 +76,8 @@ return $config
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
-        'no_spaces_inside_parenthesis' => true,
-        'no_trailing_comma_in_list_call' => true,
-        'no_trailing_comma_in_singleline_array' => true,
+        'spaces_inside_parentheses' => ['space' => 'none'],
+        'no_trailing_comma_in_singleline' => true,
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_unneeded_control_parentheses' => true,
@@ -120,7 +118,7 @@ return $config
         'trailing_comma_in_multiline' => true,
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
-        'visibility_required' => true,
+        'modifier_keywords' => true,
         'whitespace_after_comma_in_array' => true,
     ])
     ->setFinder($finder)

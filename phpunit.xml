@@ -7,8 +7,7 @@
          stopOnFailure="false"
          cacheDirectory=".phpunit.cache"
          executionOrder="depends,defects"
-         requireCoverageMetadata="false"
-        beStrictAboutCoverageMetadata="false"
+         beStrictAboutCoverageMetadata="false"
         beStrictAboutOutputDuringTests="true"
         failOnRisky="false"
         failOnWarning="false">
