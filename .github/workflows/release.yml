@@ -68,11 +68,13 @@ jobs:
               # New Features
               FEATURES=$(git log --pretty=format:"- %s" --grep="^feat:" $PREV_TAG..HEAD)
               echo "Features found: '$FEATURES'"
-              if [ -n "$FEATURES" ]; then
+              if [ ! -z "$FEATURES" ]; then
                 echo "### 🆕 New Features" >> release_notes.md
                 echo "$FEATURES" >> release_notes.md
                 echo "" >> release_notes.md
                 echo "Added features section"
+              else
+                echo "No features to add"
               fi
               
               # Improvements
@@ -86,11 +88,13 @@ jobs:
               # Bug Fixes
               FIXES=$(git log --pretty=format:"- %s" --grep="^fix:" $PREV_TAG..HEAD)
               echo "Fixes found: '$FIXES'"
-              if [ -n "$FIXES" ]; then
+              if [ ! -z "$FIXES" ]; then
                 echo "### 🐛 Bug Fixes" >> release_notes.md
                 echo "$FIXES" >> release_notes.md
                 echo "" >> release_notes.md
                 echo "Added fixes section"
+              else
+                echo "No fixes to add"
               fi
               
               # Technical Changes
@@ -133,6 +137,11 @@ jobs:
           echo "composer require lukaszzychal/tvmaze-client-php:^$VERSION" >> release_notes.md
           echo '```' >> release_notes.md
           echo "" >> release_notes.md
+          
+          # Debug: Show final content
+          echo "=== Final release_notes.md content ==="
+          cat release_notes.md
+          echo "=== End of release_notes.md ==="
           
           # Full changelog link
           if [ -n "$PREV_TAG" ]; then
