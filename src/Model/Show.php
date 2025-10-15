@@ -66,4 +66,22 @@ class Show
             _embedded: isset($data['_embedded']) ? Embedded::fromArray($data['_embedded']) : null
         );
     }
+
+    /**
+     * Get truncated summary text.
+     */
+    public function getTruncatedSummary(int $maxLength = 200): ?string
+    {
+        if (!$this->summary) {
+            return null;
+        }
+
+        $summary = strip_tags($this->summary);
+
+        if (strlen($summary) <= $maxLength) {
+            return $summary;
+        }
+
+        return substr($summary, 0, $maxLength) . '...';
+    }
 }

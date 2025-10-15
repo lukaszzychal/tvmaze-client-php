@@ -37,19 +37,17 @@ try {
         }
 
         if ($show->summary) {
-            $summary = strip_tags($show->summary);
-            $summary = strlen($summary) > 200 ? substr($summary, 0, 200) . '...' : $summary;
-            echo "   Summary: {$summary}\n";
+            echo "   Summary: {$show->getTruncatedSummary()}\n";
         }
         echo "\n";
 
         // Get first few episodes
         echo "3. Getting first 3 episodes...\n";
-        $episodes = $client->getShowEpisodes($firstShow['id']);
+        $episodes = $client->getShowEpisodes($firstShow->id);
         $firstThree = array_slice($episodes, 0, 3);
 
         foreach ($firstThree as $episode) {
-            echo "   S{$episode->season}E{$episode->number}: {$episode->name}";
+            echo "   {$episode->getFormattedTitle()}";
             if ($episode->airdate) {
                 echo " ({$episode->airdate})";
             }
@@ -59,13 +57,13 @@ try {
 
         // Search for cast members
         echo "4. Getting cast information...\n";
-        $cast = $client->getShowCast($firstShow['id']);
+        $cast = $client->getShowCast($firstShow->id);
         $firstThreeCast = array_slice($cast, 0, 3);
 
         foreach ($firstThreeCast as $castMember) {
             $person = $castMember['person'];
             $character = $castMember['character'];
-            echo "   {$person['name']} as {$character['name']}\n";
+            echo "   {$person->name} as {$character->name}\n";
         }
         echo "\n";
     }
@@ -76,12 +74,12 @@ try {
 
     if (!empty($people)) {
         $firstPerson = $people[0]['person'];
-        echo "   Found: {$firstPerson['name']} (Score: {$people[0]['score']})\n";
-        echo "   ID: {$firstPerson['id']}\n\n";
+        echo "   Found: {$firstPerson->name} (Score: {$people[0]['score']})\n";
+        echo "   ID: {$firstPerson->id}\n\n";
 
         // Get detailed person information
         echo "6. Getting detailed information for Bryan Cranston...\n";
-        $person = $client->getPerson($firstPerson['id']);
+        $person = $client->getPerson($firstPerson->id);
         echo "   Name: {$person->name}\n";
         if ($person->birthday) {
             echo "   Birthday: {$person->birthday}\n";
@@ -102,9 +100,9 @@ try {
         $firstThree = array_slice($schedule, 0, 3);
         foreach ($firstThree as $episode) {
             $show = $episode['show'];
-            echo "     {$show['name']} - {$episode['name']}";
-            if ($episode['airtime']) {
-                echo " at {$episode['airtime']}";
+            echo "     {$show->name} - {$episode->name}";
+            if ($episode->airtime) {
+                echo " at {$episode->airtime}";
             }
             echo "\n";
         }

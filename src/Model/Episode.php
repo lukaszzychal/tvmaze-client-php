@@ -50,4 +50,34 @@ class Episode
             _embedded: isset($data['_embedded']) ? Embedded::fromArray($data['_embedded']) : null
         );
     }
+
+    /**
+     * Get formatted episode title as "S{season}E{number}: {name}".
+     */
+    public function getFormattedTitle(): string
+    {
+        $season = $this->season ?? '?';
+        $number = $this->number ?? '?';
+        $name = $this->name ?? 'Unknown';
+
+        return "S{$season}E{$number}: {$name}";
+    }
+
+    /**
+     * Get truncated summary text.
+     */
+    public function getTruncatedSummary(int $maxLength = 200): ?string
+    {
+        if (!$this->summary) {
+            return null;
+        }
+
+        $summary = strip_tags($this->summary);
+
+        if (strlen($summary) <= $maxLength) {
+            return $summary;
+        }
+
+        return substr($summary, 0, $maxLength) . '...';
+    }
 }
