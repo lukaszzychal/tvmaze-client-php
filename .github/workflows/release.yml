@@ -55,9 +55,21 @@ jobs:
           PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
           echo "Previous tag: $PREV_TAG"
           
+          # Alternative: try to get the second-to-last tag
+          ALL_TAGS=$(git tag --sort=-version:refname | head -2)
+          echo "All tags: $ALL_TAGS"
+          PREV_TAG_ALT=$(echo "$ALL_TAGS" | tail -1)
+          echo "Alternative previous tag: $PREV_TAG_ALT"
+          
           # Generate changelog for this version
           echo "## Changes in v$VERSION" > release_notes.md
           echo "" >> release_notes.md
+          
+          # Use alternative tag if first one is empty
+          if [ -z "$PREV_TAG" ] && [ -n "$PREV_TAG_ALT" ]; then
+            PREV_TAG="$PREV_TAG_ALT"
+            echo "Using alternative previous tag: $PREV_TAG"
+          fi
           
           if [ -n "$PREV_TAG" ]; then
             # Check if there are any commits
