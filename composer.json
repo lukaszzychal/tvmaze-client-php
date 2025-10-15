@@ -44,6 +44,11 @@
         "quality": [
             "@cs-check",
             "@phpstan",
+            "@test"
+        ],
+        "quality-with-psalm": [
+            "@cs-check",
+            "@phpstan",
             "@psalm",
             "@test"
         ],

@@ -74,6 +74,12 @@ composer quality-full
 ### **Level 2: Standard** (`quality`)
 - ✅ Code style check
 - ✅ PHPStan analysis
+- ✅ Unit tests
+- ⏱️ ~1.5 minutes
+
+### **Level 2.5: With Psalm** (`quality-with-psalm`)
+- ✅ Code style check
+- ✅ PHPStan analysis
 - ✅ Psalm analysis
 - ✅ Unit tests
 - ⏱️ ~2 minutes

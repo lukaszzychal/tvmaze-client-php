@@ -37,14 +37,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Run PHP CS Fixer
-        run: composer cs-check
-
-      - name: Run PHPStan
-        run: composer phpstan
-
-      - name: Run Unit Tests
-        run: composer test
+      - name: Run all quality checks
+        run: composer quality
 
 
   contract-tests:
@@ -76,28 +70,3 @@ jobs:
         env:
           CI: true
 
-  quality:
-    name: Quality Checks
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: mbstring, dom, curl, libxml, zip
-
-      - name: Cache Composer packages
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-8.3-${{ hashFiles('**/composer.lock') }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Run all quality checks
-        run: composer quality
