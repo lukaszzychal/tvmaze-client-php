@@ -51,80 +51,18 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
-          # Get the previous tag
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
-          echo "Previous tag: $PREV_TAG"
-          
-          # Alternative: try to get the second-to-last tag
-          ALL_TAGS=$(git tag --sort=-version:refname | head -2)
-          echo "All tags: $ALL_TAGS"
-          PREV_TAG_ALT=$(echo "$ALL_TAGS" | tail -1)
-          echo "Alternative previous tag: $PREV_TAG_ALT"
-          
           # Generate changelog for this version
           echo "## Changes in v$VERSION" > release_notes.md
           echo "" >> release_notes.md
           
-          # Use alternative tag if first one is empty
-          if [ -z "$PREV_TAG" ] && [ -n "$PREV_TAG_ALT" ]; then
-            PREV_TAG="$PREV_TAG_ALT"
-            echo "Using alternative previous tag: $PREV_TAG"
-          fi
+          # Get the previous tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+          echo "Previous tag: $PREV_TAG"
           
           if [ -n "$PREV_TAG" ]; then
-            # Check if there are any commits
-            COMMITS=$(git log --pretty=format:"%s" $PREV_TAG..HEAD | wc -l)
-            echo "Commits found: $COMMITS"
-            
-            if [ "$COMMITS" -gt 0 ]; then
-              # New Features
-              FEATURES=$(git log --pretty=format:"- %s" --grep="^feat:" $PREV_TAG..HEAD)
-              echo "Features found: '$FEATURES'"
-              if [ ! -z "$FEATURES" ]; then
-                echo "### 🆕 New Features" >> release_notes.md
-                echo "$FEATURES" >> release_notes.md
-                echo "" >> release_notes.md
-                echo "Added features section"
-              else
-                echo "No features to add"
-              fi
-              
-              # Improvements
-              IMPROVEMENTS=$(git log --pretty=format:"- %s" --grep="^improve\|^enhance\|^update\|^refactor:" $PREV_TAG..HEAD)
-              if [ -n "$IMPROVEMENTS" ]; then
-                echo "### ⚡ Improvements" >> release_notes.md
-                echo "$IMPROVEMENTS" >> release_notes.md
-                echo "" >> release_notes.md
-              fi
-              
-              # Bug Fixes
-              FIXES=$(git log --pretty=format:"- %s" --grep="^fix:" $PREV_TAG..HEAD)
-              echo "Fixes found: '$FIXES'"
-              if [ ! -z "$FIXES" ]; then
-                echo "### 🐛 Bug Fixes" >> release_notes.md
-                echo "$FIXES" >> release_notes.md
-                echo "" >> release_notes.md
-                echo "Added fixes section"
-              else
-                echo "No fixes to add"
-              fi
-              
-              # Technical Changes
-              TECHNICAL=$(git log --pretty=format:"- %s" --grep="^chore\|^docs:" $PREV_TAG..HEAD)
-              if [ -n "$TECHNICAL" ]; then
-                echo "### 🔧 Technical Changes" >> release_notes.md
-                echo "$TECHNICAL" >> release_notes.md
-                echo "" >> release_notes.md
-              fi
-              
-              # All Changes (fallback if no categorized changes)
-              ALL_CHANGES=$(git log --pretty=format:"- %s" $PREV_TAG..HEAD)
-              if [ -z "$FEATURES" ] && [ -z "$IMPROVEMENTS" ] && [ -z "$FIXES" ] && [ -z "$TECHNICAL" ]; then
-                echo "### 📋 All Changes" >> release_notes.md
-                echo "$ALL_CHANGES" >> release_notes.md
-                echo "" >> release_notes.md
-              fi
-            fi
+            echo "### What's Changed" >> release_notes.md
+            git log --pretty=format:"- %s" $PREV_TAG..HEAD >> release_notes.md
+            echo "" >> release_notes.md
           fi
           
           # Migration Guide - check for breaking changes
@@ -149,11 +87,6 @@ jobs:
           echo "composer require lukaszzychal/tvmaze-client-php:^$VERSION" >> release_notes.md
           echo '```' >> release_notes.md
           echo "" >> release_notes.md
-          
-          # Debug: Show final content
-          echo "=== Final release_notes.md content ==="
-          cat release_notes.md
-          echo "=== End of release_notes.md ==="
           
           # Full changelog link
           if [ -n "$PREV_TAG" ]; then
