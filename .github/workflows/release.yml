@@ -59,36 +59,66 @@ jobs:
           echo "" >> release_notes.md
           
           if [ -n "$PREV_TAG" ]; then
-            # New Features
-            echo "### 🆕 New Features" >> release_notes.md
-            git log --pretty=format:"- %s" --grep="^feat:" $PREV_TAG..HEAD >> release_notes.md 2>/dev/null || true
-            echo "" >> release_notes.md
+            # Check if there are any commits
+            COMMITS=$(git log --pretty=format:"%s" $PREV_TAG..HEAD | wc -l)
             
-            # Improvements
-            echo "### ⚡ Improvements" >> release_notes.md
-            git log --pretty=format:"- %s" --grep="^improve\|^enhance\|^update\|^refactor:" $PREV_TAG..HEAD >> release_notes.md 2>/dev/null || true
-            echo "" >> release_notes.md
-            
-            # Bug Fixes
-            echo "### 🐛 Bug Fixes" >> release_notes.md
-            git log --pretty=format:"- %s" --grep="^fix:" $PREV_TAG..HEAD >> release_notes.md 2>/dev/null || true
-            echo "" >> release_notes.md
-            
-            # Technical Changes
-            echo "### 🔧 Technical Changes" >> release_notes.md
-            git log --pretty=format:"- %s" --grep="^chore\|^docs:" $PREV_TAG..HEAD >> release_notes.md 2>/dev/null || true
-            echo "" >> release_notes.md
-            
-            # All Changes (fallback)
-            echo "### 📋 All Changes" >> release_notes.md
-            git log --pretty=format:"- %s" $PREV_TAG..HEAD >> release_notes.md
-            echo "" >> release_notes.md
+            if [ "$COMMITS" -gt 0 ]; then
+              # New Features
+              FEATURES=$(git log --pretty=format:"- %s" --grep="^feat:" $PREV_TAG..HEAD)
+              if [ -n "$FEATURES" ]; then
+                echo "### 🆕 New Features" >> release_notes.md
+                echo "$FEATURES" >> release_notes.md
+                echo "" >> release_notes.md
+              fi
+              
+              # Improvements
+              IMPROVEMENTS=$(git log --pretty=format:"- %s" --grep="^improve\|^enhance\|^update\|^refactor:" $PREV_TAG..HEAD)
+              if [ -n "$IMPROVEMENTS" ]; then
+                echo "### ⚡ Improvements" >> release_notes.md
+                echo "$IMPROVEMENTS" >> release_notes.md
+                echo "" >> release_notes.md
+              fi
+              
+              # Bug Fixes
+              FIXES=$(git log --pretty=format:"- %s" --grep="^fix:" $PREV_TAG..HEAD)
+              if [ -n "$FIXES" ]; then
+                echo "### 🐛 Bug Fixes" >> release_notes.md
+                echo "$FIXES" >> release_notes.md
+                echo "" >> release_notes.md
+              fi
+              
+              # Technical Changes
+              TECHNICAL=$(git log --pretty=format:"- %s" --grep="^chore\|^docs:" $PREV_TAG..HEAD)
+              if [ -n "$TECHNICAL" ]; then
+                echo "### 🔧 Technical Changes" >> release_notes.md
+                echo "$TECHNICAL" >> release_notes.md
+                echo "" >> release_notes.md
+              fi
+              
+              # All Changes (fallback if no categorized changes)
+              ALL_CHANGES=$(git log --pretty=format:"- %s" $PREV_TAG..HEAD)
+              if [ -z "$FEATURES" ] && [ -z "$IMPROVEMENTS" ] && [ -z "$FIXES" ] && [ -z "$TECHNICAL" ]; then
+                echo "### 📋 All Changes" >> release_notes.md
+                echo "$ALL_CHANGES" >> release_notes.md
+                echo "" >> release_notes.md
+              fi
+            fi
           fi
           
-          # Migration Guide
-          echo "### 🚀 Migration Guide" >> release_notes.md
-          echo "**No breaking changes** - This release maintains full backward compatibility." >> release_notes.md
-          echo "" >> release_notes.md
+          # Migration Guide - check for breaking changes
+          BREAKING_CHANGES=$(git log --pretty=format:"%s" --grep="BREAKING CHANGE\|breaking" $PREV_TAG..HEAD)
+          if [ -n "$BREAKING_CHANGES" ]; then
+            echo "### 🚨 Migration Guide" >> release_notes.md
+            echo "**BREAKING CHANGES** - This release contains breaking changes." >> release_notes.md
+            echo "" >> release_notes.md
+            echo "**Breaking Changes:**" >> release_notes.md
+            echo "$BREAKING_CHANGES" >> release_notes.md
+            echo "" >> release_notes.md
+          else
+            echo "### 🚀 Migration Guide" >> release_notes.md
+            echo "**No breaking changes** - This release maintains full backward compatibility." >> release_notes.md
+            echo "" >> release_notes.md
+          fi
           
           # Installation instructions
           echo "### 📦 Installation" >> release_notes.md
