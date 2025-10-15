@@ -355,6 +355,10 @@ See [examples/attribution-usage.php](examples/attribution-usage.php) for compreh
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Test Section
+
+This is a test section added to verify changelog generation works correctly.
+
 ## TVMaze API
 
 This client is built for the [TVMaze API](https://www.tvmaze.com/api), which provides:
