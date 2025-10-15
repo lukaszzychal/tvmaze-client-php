@@ -15,4 +15,10 @@ class TestFeature {
     {
         return true;
     }
+    
+    public function bugFixMethod(): int
+    {
+        // Fixed bug in calculation
+        return 42;
+    }
 }
