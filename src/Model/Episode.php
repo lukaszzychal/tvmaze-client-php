@@ -80,4 +80,29 @@ class Episode
 
         return substr($summary, 0, $maxLength) . '...';
     }
+
+    /**
+     * Get TVMaze attribution for this episode.
+     * Required for CC BY-SA license compliance.
+     */
+    public function getAttributionHtml(): string
+    {
+        return '<p class="tvmaze-attribution">Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>';
+    }
+
+    /**
+     * Get TVMaze attribution as plain text.
+     */
+    public function getAttributionText(): string
+    {
+        return 'Data provided by TVMaze (https://www.tvmaze.com)';
+    }
+
+    /**
+     * Get TVMaze attribution as Markdown.
+     */
+    public function getAttributionMarkdown(): string
+    {
+        return 'Data provided by [TVMaze](https://www.tvmaze.com)';
+    }
 }

@@ -302,6 +302,55 @@ Contract test failures automatically create GitHub issues when the API changes.
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request
 
+## License Compliance
+
+### TVMaze API License (CC BY-SA 4.0)
+
+The TVMaze API is licensed under [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/). This means you must provide attribution when using their data.
+
+### Automatic Attribution
+
+This client provides built-in methods to ensure license compliance:
+
+```php
+use TVMaze\Client\TVMazeClient;
+
+$client = TVMazeClient::create('MyApp/1.0');
+
+// For web applications
+echo $client->getAttributionHtml();
+// Output: <p class="tvmaze-attribution">Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>
+
+// For console applications
+echo $client->getAttributionText();
+// Output: Data provided by TVMaze (https://www.tvmaze.com)
+
+// For documentation (Markdown)
+echo $client->getAttributionMarkdown();
+// Output: Data provided by [TVMaze](https://www.tvmaze.com)
+
+// Detailed attribution with license info
+echo $client->getDetailedAttributionHtml();
+```
+
+### Model-specific Attribution
+
+You can also get attribution from individual models:
+
+```php
+$show = $client->getShow(1);
+echo $show->getAttributionHtml();    // HTML attribution
+echo $show->getAttributionText();    // Plain text
+echo $show->getAttributionMarkdown(); // Markdown
+
+$episode = $client->getShowEpisodes(1)[0];
+echo $episode->getAttributionHtml(); // Same methods available
+```
+
+### Examples
+
+See [examples/attribution-usage.php](examples/attribution-usage.php) for comprehensive attribution usage examples.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -109,6 +109,8 @@ try {
     }
 
     echo "\n✅ Example completed successfully!\n";
+    echo "\n📋 License Compliance:\n";
+    echo '   ' . $client->getAttributionText() . "\n";
 } catch (TVMazeException $e) {
     echo '❌ TVMaze API Error: ' . $e->getMessage() . "\n";
     echo '   Code: ' . $e->getCode() . "\n";

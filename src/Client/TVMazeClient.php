@@ -424,4 +424,42 @@ class TVMazeClient implements ClientInterface
             throw new TVMazeException('Request failed', 0, $e);
         }
     }
+
+    /**
+     * Get TVMaze attribution as HTML.
+     * Required for CC BY-SA license compliance.
+     */
+    public function getAttributionHtml(): string
+    {
+        return '<p class="tvmaze-attribution">Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>';
+    }
+
+    /**
+     * Get TVMaze attribution as plain text.
+     * Required for CC BY-SA license compliance.
+     */
+    public function getAttributionText(): string
+    {
+        return 'Data provided by TVMaze (https://www.tvmaze.com)';
+    }
+
+    /**
+     * Get TVMaze attribution as Markdown.
+     * Required for CC BY-SA license compliance.
+     */
+    public function getAttributionMarkdown(): string
+    {
+        return 'Data provided by [TVMaze](https://www.tvmaze.com)';
+    }
+
+    /**
+     * Get detailed TVMaze attribution with license information.
+     */
+    public function getDetailedAttributionHtml(): string
+    {
+        return '<div class="tvmaze-attribution">
+            <p>Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>
+            <p><small>Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></small></p>
+        </div>';
+    }
 }
