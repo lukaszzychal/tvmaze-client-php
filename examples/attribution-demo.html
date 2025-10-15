@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVMaze Attribution Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .show-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9f9f9;
+        }
+        .show-title {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .show-summary {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .tvmaze-attribution {
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 15px;
+        }
+        .tvmaze-attribution a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .tvmaze-attribution a:hover {
+            text-decoration: underline;
+        }
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .demo-title {
+            color: #333;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>TVMaze Attribution Demo</h1>
+    
+    <div class="demo-section">
+        <h2 class="demo-title">1. Basic Attribution (HTML)</h2>
+        <p>This is how attribution looks in a web application:</p>
+        
+        <div class="show-card">
+            <h3 class="show-title">Breaking Bad</h3>
+            <p class="show-summary">Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live.</p>
+            <p class="tvmaze-attribution">Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">2. Detailed Attribution</h2>
+        <p>This includes license information:</p>
+        
+        <div class="show-card">
+            <h3 class="show-title">The Office</h3>
+            <p class="show-summary">Steve Carell stars in The Office, a fresh and funny mockumentary-style glimpse into the daily interactions of the eccentric workers at the Dunder Mifflin paper supply company.</p>
+            <div class="tvmaze-attribution">
+                <p>Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>
+                <p><small>Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></small></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">3. Episode Attribution</h2>
+        <p>Attribution for individual episodes:</p>
+        
+        <div class="show-card">
+            <h3 class="show-title">S1E1: Pilot</h3>
+            <p class="show-summary">A high-school chemistry teacher (Bryan Cranston) is diagnosed with inoperable lung cancer. To secure his family's financial future, he begins manufacturing and selling crystallized methamphetamine.</p>
+            <p class="tvmaze-attribution">Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a></p>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">4. PHP Code Examples</h2>
+        <p>How to generate these attributions in PHP:</p>
+        
+        <h4>Basic Attribution:</h4>
+        <pre><code>$client = TVMazeClient::create('MyApp/1.0');
+echo $client->getAttributionHtml();
+// Output: &lt;p class="tvmaze-attribution"&gt;Data provided by &lt;a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer"&gt;TVMaze&lt;/a&gt;&lt;/p&gt;</code></pre>
+
+        <h4>Detailed Attribution:</h4>
+        <pre><code>echo $client->getDetailedAttributionHtml();
+// Includes CC BY-SA 4.0 license information</code></pre>
+
+        <h4>Model-specific Attribution:</h4>
+        <pre><code>$show = $client->getShow(1);
+echo $show->getAttributionHtml();
+
+$episode = $client->getShowEpisodes(1)[0];
+echo $episode->getAttributionHtml();</code></pre>
+
+        <h4>Different Formats:</h4>
+        <pre><code>// HTML for web
+echo $client->getAttributionHtml();
+
+// Plain text for console
+echo $client->getAttributionText();
+
+// Markdown for documentation
+echo $client->getAttributionMarkdown();</code></pre>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">5. License Compliance</h2>
+        <p><strong>Important:</strong> The TVMaze API is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike 4.0</a>.</p>
+        
+        <p>This means you <strong>must</strong> provide attribution when using their data. The attribution methods in this client make it easy to comply with these requirements.</p>
+        
+        <h4>Requirements:</h4>
+        <ul>
+            <li>✅ <strong>Attribution</strong> - Credit TVMaze as the data source</li>
+            <li>✅ <strong>ShareAlike</strong> - Share modifications under the same license</li>
+            <li>✅ <strong>Link</strong> - Provide a link to TVMaze</li>
+        </ul>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">6. Security Features</h2>
+        <p>Notice the <code>rel="noopener noreferrer"</code> attributes in the links:</p>
+        <ul>
+            <li><strong>noopener</strong> - Prevents the new page from accessing <code>window.opener</code></li>
+            <li><strong>noreferrer</strong> - Doesn't send referrer information</li>
+            <li><strong>target="_blank"</strong> - Opens in new tab/window</li>
+        </ul>
+        <p>These attributes ensure security and privacy when linking to external sites.</p>
+    </div>
+
+    <div class="tvmaze-attribution">
+        <p>This demo page demonstrates attribution methods from the <a href="https://github.com/lukaszzychal/tvmaze-client-php" target="_blank" rel="noopener noreferrer">TVMaze PHP Client</a></p>
+        <p>Data provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze</a> • Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>
+    </div>
+</body>
+</html>

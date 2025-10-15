@@ -1,0 +1,135 @@
+/* TVMaze Attribution Styles */
+
+/* Basic attribution styling */
+.tvmaze-attribution {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.tvmaze-attribution a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.tvmaze-attribution a:hover {
+    text-decoration: underline;
+    color: #004499;
+}
+
+/* Detailed attribution styling */
+.tvmaze-attribution small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #888;
+}
+
+/* Card-based attribution */
+.show-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background: #f9f9f9;
+    position: relative;
+}
+
+.show-card .tvmaze-attribution {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    margin: 0;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    border: none;
+    font-size: 0.8em;
+}
+
+/* Footer attribution */
+.page-footer .tvmaze-attribution {
+    text-align: center;
+    padding: 20px;
+    background: #f5f5f5;
+    border-top: 2px solid #ddd;
+    margin-top: 40px;
+}
+
+/* Sidebar attribution */
+.sidebar .tvmaze-attribution {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 3px solid #0066cc;
+    margin: 15px 0;
+}
+
+/* Dark theme attribution */
+.dark-theme .tvmaze-attribution {
+    color: #ccc;
+    border-color: #444;
+}
+
+.dark-theme .tvmaze-attribution a {
+    color: #4da6ff;
+}
+
+.dark-theme .tvmaze-attribution a:hover {
+    color: #66b3ff;
+}
+
+/* Compact attribution */
+.tvmaze-attribution.compact {
+    font-size: 0.8em;
+    margin-top: 5px;
+    padding-top: 5px;
+    display: inline-block;
+}
+
+/* Inline attribution */
+.tvmaze-attribution.inline {
+    display: inline;
+    margin: 0 5px;
+    padding: 0;
+    border: none;
+}
+
+/* Responsive attribution */
+@media (max-width: 768px) {
+    .tvmaze-attribution {
+        font-size: 0.85em;
+        text-align: center;
+    }
+    
+    .show-card .tvmaze-attribution {
+        position: static;
+        margin-top: 15px;
+        text-align: left;
+    }
+}
+
+/* Animation for attribution */
+.tvmaze-attribution {
+    transition: opacity 0.3s ease;
+}
+
+.tvmaze-attribution:hover {
+    opacity: 0.8;
+}
+
+/* Print styles */
+@media print {
+    .tvmaze-attribution {
+        color: #000 !important;
+        border-top: 1px solid #000 !important;
+    }
+    
+    .tvmaze-attribution a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+}
