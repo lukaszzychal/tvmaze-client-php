@@ -179,3 +179,5 @@ Consider adding pre-commit hooks to run `composer quality-fast` automatically.
 - [PHPStan Documentation](https://phpstan.org/)
 - [Psalm Documentation](https://psalm.dev/)
 - [PHPUnit Documentation](https://phpunit.de/)
+- [GitHub Discussions](https://github.com/lukaszzychal/tvmaze-client-php/discussions)
+- [GitHub Issues](https://github.com/lukaszzychal/tvmaze-client-php/issues)

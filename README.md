@@ -376,5 +376,5 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 ## Support
 
 - **Documentation**: [TVMaze API Docs](https://www.tvmaze.com/api)
+- **Discussions**: [GitHub Discussions](https://github.com/lukaszzychal/tvmaze-client-php/discussions)
 - **Issues**: [GitHub Issues](https://github.com/lukaszzychal/tvmaze-client-php/issues)
-- **TVMaze Forums**: [TVMaze Community](https://forums.tvmaze.com/)

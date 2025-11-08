@@ -10,6 +10,11 @@
             "email": "lukasz.zychal.dev@gmail.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/lukaszzychal/tvmaze-client-php/issues",
+        "discussions": "https://github.com/lukaszzychal/tvmaze-client-php/discussions",
+        "source": "https://github.com/lukaszzychal/tvmaze-client-php"
+    },
     "require": {
         "php": "^8.2",
         "psr/http-client": "^1.0",
